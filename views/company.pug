@@ -1,0 +1,39 @@
+extends base
+
+block content
+    main.main
+        .card-container
+            each company in companies
+                .card
+                    .card__header
+                        .card__picture
+                            .card__picture-overlay &nbsp;
+                            //- img.card__picture-img(src=``, alt=``)
+                        h3.heading-tertirary
+                            span= company.name
+
+                    .card__details
+                        h4.card__sub-heading= `Email -  ${company.email}`
+                        p.card__text= `Website -  ${company.website}`
+                        .card__data
+                    .card__footer
+                        if user
+                            a.btn.btn--green.btn--small(href=`company/${company.slug}`) Employee List
+                        else
+                            a.btn.btn--green.btn--small(href=``) Employee List
+        if paginate.hasPreviousPages || paginate.hasNextPages(2)
+            .navigation.well-sm#pagination
+                ul.pager
+                    if paginate.hasPreviousPages
+                        li.previous
+                            a(href=paginate.href(true)).prev
+                                i.fa.fa-arrow-circle-left
+                                |  Previous
+                    if pages
+                        each page in pages
+                            a.btn.btn-default(href=page.url)= page.number
+                    if paginate.hasNextPages(2)
+                        li.next
+                            a(href=paginate.href()).next
+                                | Next&nbsp;
+                                i.fa.fa-arrow-circle-right
